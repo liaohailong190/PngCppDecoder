@@ -1,4 +1,4 @@
-package com.hidajian.htks;
+package com.hidajian.htks.png;
 
 import android.graphics.Bitmap;
 

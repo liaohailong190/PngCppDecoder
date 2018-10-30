@@ -12,33 +12,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.hidajian.htks.PNGRender;
+import com.hidajian.htks.png.PNGRender;
 
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private String frameNames[] = {
-//            "love1.png",
-//            "love2.png",
-//            "love3.png",
-//            "love4.png"
+            "love1.png",
+            "love2.png",
+            "love3.png",
+            "love4.png"
 
-            "kiss1.png",
-            "kiss2.png",
-            "kiss3.png",
-            "kiss4.png",
-            "kiss5.png",
-            "kiss6.png",
-            "kiss7.png",
-            "kiss8.png",
-            "kiss9.png",
-            "kiss10.png",
-            "kiss11.png",
-            "kiss12.png",
-            "kiss13.png",
-            "kiss14.png",
-            "kiss15.png",
-            "kiss16.png",
+//            "kiss1.png",
+//            "kiss2.png",
+//            "kiss3.png",
+//            "kiss4.png",
+//            "kiss5.png",
+//            "kiss6.png",
+//            "kiss7.png",
+//            "kiss8.png",
+//            "kiss9.png",
+//            "kiss10.png",
+//            "kiss11.png",
+//            "kiss12.png",
+//            "kiss13.png",
+//            "kiss14.png",
+//            "kiss15.png",
+//            "kiss16.png",
 //
 //            "number1.png",
 //            "number2.png",

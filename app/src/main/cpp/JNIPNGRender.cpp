@@ -13,7 +13,7 @@
 
 extern "C"
 JNIEXPORT jboolean JNICALL
-Java_com_hidajian_htks_PNGRender_renderBitmap(JNIEnv *env, jobject instance, jobject bitmap,
+Java_com_hidajian_htks_png_PNGRender_renderBitmap(JNIEnv *env, jobject instance, jobject bitmap,
                                               jstring filePath_) {
     const char *filePath = env->GetStringUTFChars(filePath_, JNI_FALSE);
 
