@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import com.hidajian.htks.png.PNGRender;
 
 import java.io.File;
-import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity {
     private String frameNames[] = {
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //            "kiss14.png",
 //            "kiss15.png",
 //            "kiss16.png",
-//
+
 //            "number1.png",
 //            "number2.png",
 //            "number3.png",
@@ -55,6 +54,33 @@ public class MainActivity extends AppCompatActivity {
 //            "number13.png",
 //            "number14.png",
 //            "number15.png"
+
+//            "cucumber1.png",
+//            "cucumber2.png",
+//            "cucumber3.png",
+//            "cucumber4.png",
+//            "cucumber5.png",
+//            "cucumber6.png",
+//            "cucumber7.png",
+//            "cucumber8.png",
+//            "cucumber9.png",
+//            "cucumber10.png",
+//            "cucumber11.png",
+//            "cucumber12.png",
+//            "cucumber13.png",
+//            "cucumber14.png",
+//            "cucumber15.png",
+//            "cucumber16.png",
+//            "cucumber17.png",
+//            "cucumber18.png",
+//            "cucumber19.png",
+//            "cucumber20.png",
+//            "cucumber21.png",
+//            "cucumber22.png",
+//            "cucumber23.png",
+//            "cucumber24.png",
+//            "cucumber25.png",
+//            "cucumber26.png"
     };
     private int index = 0;
     private ImageView frameImg;

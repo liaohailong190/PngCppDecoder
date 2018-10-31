@@ -8,17 +8,7 @@
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define PNG_BYTES_TO_CHECK 4
 
-//获取每一行所用的字节数，需要凑足4的倍数
-int getRowBytes(int width) {
-    //刚好是4的倍数
-    if ((width * 3) % 4 == 0) {
-        return width * 3;
-    } else {
-        return ((width * 3) / 4 + 1) * 4;
-    }
-}
-
-unsigned char *LoadFromFilePath(const char *filepath, int *_width, int *_height) {
+unsigned char *readPixel(const char *filepath, int *_width, int *_height) {
     png_structp png_ptr;
     png_infop info_ptr;
     FILE *fp;
@@ -53,32 +43,32 @@ unsigned char *LoadFromFilePath(const char *filepath, int *_width, int *_height)
     //获取png图片相关信息
     png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, NULL, NULL,
                  NULL);
-    printf("width[%d], height[%d], bit_depth[%d], color_type[%d]\n",
-           width, height, bit_depth, color_type);
 
     //获得所有png数据
     png_bytep *row_pointers = png_get_rows(png_ptr, info_ptr);
-    //计算buffer大小
-    unsigned int bufSize = 0;
+    unsigned int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+    //申请堆空间
+    unsigned char *buffer = new unsigned char[rowbytes * height];
+    long pos = 0;
     if (color_type == PNG_COLOR_TYPE_RGB) {
-        bufSize = getRowBytes(width) * height;
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width * 3; j += 3) {
+                buffer[pos++] = row_pointers[i][j + 0];
+                buffer[pos++] = row_pointers[i][j + 1];
+                buffer[pos++] = row_pointers[i][j + 2];
+            }
     } else if (color_type == PNG_COLOR_TYPE_RGBA) {
-        bufSize = width * height * 4;
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width * 4; j += 4) {
+                buffer[pos++] = row_pointers[i][j + 0] * row_pointers[i][j + 3] / 255;
+                buffer[pos++] = row_pointers[i][j + 1] * row_pointers[i][j + 3] / 255;
+                buffer[pos++] = row_pointers[i][j + 2] * row_pointers[i][j + 3] / 255;
+                buffer[pos++] = row_pointers[i][j + 3];
+            }
     } else {
         return nullptr;
     }
-    //申请堆空间
-    unsigned char *buffer = new unsigned char[bufSize];
-    int i;
-    for (i = 0; i < height; i++) {
-        //拷贝每行的数据到buffer，
-        //opengl原点在下方，拷贝时要倒置一下
-        if (color_type == PNG_COLOR_TYPE_RGB) {
-            memcpy(buffer + getRowBytes(width) * i, row_pointers[i], width * 3);
-        } else if (color_type == PNG_COLOR_TYPE_RGBA) {
-            memcpy(buffer + i * width * 4, row_pointers[i], width * 4);
-        }
-    }
+
     png_destroy_read_struct(&png_ptr, &info_ptr, 0);
     fclose(fp);
     *_width = width;

@@ -13,6 +13,6 @@
 #include <stdio.h>
 
 
-unsigned char *LoadFromFilePath(const char *filepath, int *width, int *height);
+unsigned char *readPixel(const char *filepath, int *width, int *height);
 
 #endif //CBITMAPRENDER_PNGUTIL_H

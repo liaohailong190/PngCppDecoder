@@ -8,7 +8,7 @@
 #include<android/log.h>
 #include <cstring>
 
-#define TAG "LIBPNG"
+#define TAG "LibPNG"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO,TAG,__VA_ARGS__)
 
 extern "C"
@@ -26,7 +26,7 @@ Java_com_hidajian_htks_png_PNGRender_renderBitmap(JNIEnv *env, jobject instance,
 
     int width = 0;
     int height = 0;
-    unsigned char *pixels = LoadFromFilePath(filePath, &width, &height);
+    unsigned char *pixels = readPixel(filePath, &width, &height);
     env->ReleaseStringUTFChars(filePath_, filePath);
     if (pixels == nullptr) return JNI_FALSE;
 
@@ -71,7 +71,7 @@ Java_com_hidajian_htks_png_PNGRender_readByteBuffer(JNIEnv *env, jobject instanc
     const char *filePath = env->GetStringUTFChars(filePath_, JNI_FALSE);
     int width = 0;
     int height = 0;
-    unsigned char *pixels = LoadFromFilePath(filePath, &width, &height);
+    unsigned char *pixels = readPixel(filePath, &width, &height);
     jbyte *pData = (jbyte *) env->GetDirectBufferAddress(byteBuffer);
 
     const int BLOCK_SIZE = 4;    //(rgba 4 bytes)
