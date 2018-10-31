@@ -9,12 +9,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.hidajian.htks.png.PNGRender;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity {
     private String frameNames[] = {
@@ -74,19 +74,31 @@ public class MainActivity extends AppCompatActivity {
             File file = new File(Environment.getExternalStorageDirectory(), frameNames[0]);
             inBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 
+//            frameImg.setImageBitmap(inBitmap);
+//            frameImg.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    File file1 = new File(Environment.getExternalStorageDirectory(), frameNames[0]);
+//                    int byteCount = inBitmap.getByteCount();
+//                    ByteBuffer byteBuffer = ByteBuffer.allocateDirect(byteCount);
+//                    pngRender.readByteBuffer(file1.getAbsolutePath(), byteBuffer);
+//
+//                    inBitmap.copyPixelsFromBuffer(byteBuffer);
+//                    frameImg.setImageBitmap(inBitmap);
+//                }
+//            }, 4000);
+
             valueAnimator = ValueAnimator.ofInt(0, 1);
-            valueAnimator.setDuration(32);
+            valueAnimator.setDuration(64);
             valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
             valueAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationRepeat(Animator animation) {
                     File file = new File(Environment.getExternalStorageDirectory(), frameNames[index % frameNames.length]);
-                    long start = System.currentTimeMillis();
-                    Log.i("renderBitmap", "start  = " + start);
                     if (pngRender.renderBitmap(inBitmap, file.getAbsolutePath())) {
-                        Log.i("renderBitmap", "cost  = " + (System.currentTimeMillis() - start));
                         frameImg.setImageBitmap(inBitmap);
                     }
+                    frameImg.setImageBitmap(inBitmap);
                     index++;
                 }
             });

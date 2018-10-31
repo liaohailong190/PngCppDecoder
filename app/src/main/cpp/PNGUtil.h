@@ -13,8 +13,6 @@
 #include <stdio.h>
 
 
-unsigned char *LoadFromFilePath(const char *fileName, int *width, int *height);
-
-unsigned char *LoadFromStream(std::istream &pngDataStream, int *width, int *height);
+unsigned char *LoadFromFilePath(const char *filepath, int *width, int *height);
 
 #endif //CBITMAPRENDER_PNGUTIL_H
