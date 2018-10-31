@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.4.1)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -std=c99")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/libs/${ANDROID_ABI})
+include_directories(src/main/cpp)
 set(LIBPNG_PATH src/main/cpp/lpng1635)
 
 # OUR SOURCES
@@ -62,27 +62,18 @@ set(libpng_sources
         ${libpng_powerpc_sources}
         )
 
-add_library(
-        png SHARED
-        ${libpng_sources}
-)
-
-target_link_libraries(
-        png
-        log
-        z)
-
-include_directories(src/main/cpp)
+set(pngrender_sources
+        src/main/cpp/JNIPNGRender.cpp
+        src/main/cpp/PNGUtil.cpp)
 
 add_library(
         PNGRender SHARED
-        src/main/cpp/JNIPNGRender.cpp
-        src/main/cpp/PNGUtil.cpp
+        ${libpng_sources}
+        ${pngrender_sources}
 )
 
 target_link_libraries(
         PNGRender
-        png
         log
         android
         jnigraphics
